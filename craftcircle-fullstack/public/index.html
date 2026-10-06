@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CraftCircle — Handmade DIY Showcase & Marketplace</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="brand">
+      <span class="brand-mark">◐</span>
+      <span>CraftCircle</span>
+    </div>
+    <nav class="main-nav">
+      <button class="nav-btn" data-view="home">Home</button>
+      <button class="nav-btn" data-view="tutorials">Tutorials</button>
+      <button class="nav-btn" data-view="marketplace">Marketplace</button>
+      <button class="nav-btn" data-view="cart">Cart <span id="cart-count" class="badge">0</span></button>
+      <button class="nav-btn" data-view="orders">Orders</button>
+      <button class="nav-btn admin-only hidden" data-view="admin">Admin</button>
+    </nav>
+    <div class="auth-area" id="auth-area">
+      <button class="nav-btn" data-view="login">Log In</button>
+      <button class="btn-primary" data-view="register">Sign Up</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- HOME -->
+  <section class="view" id="view-home">
+    <div class="hero">
+      <h1>Learn. Make. Sell.</h1>
+      <p>CraftCircle is where handmade creators showcase DIY tutorials and sell their craft to the world — all in one place.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" data-view="tutorials">Browse Tutorials</button>
+        <button class="btn-secondary" data-view="marketplace">Shop Marketplace</button>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3>DIY Tutorials</h3>
+        <p>Upload and learn handmade craft tutorials from the community.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛍️</div>
+        <h3>Marketplace</h3>
+        <p>Buy and sell handmade products directly from creators.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Community</h3>
+        <p>Like, comment, and connect with fellow craft makers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUTORIALS -->
+  <section class="view hidden" id="view-tutorials">
+    <div class="view-header">
+      <h2>DIY Tutorials</h2>
+      <button class="btn-primary auth-required hidden" id="new-tutorial-btn">+ Upload Tutorial</button>
+    </div>
+    <div class="toolbar">
+      <input type="text" id="tutorial-search" placeholder="Search tutorials..." />
+      <select id="tutorial-category">
+        <option value="">All Categories</option>
+        <option value="Knitting">Knitting</option>
+        <option value="Woodwork">Woodwork</option>
+        <option value="Pottery">Pottery</option>
+        <option value="Jewelry">Jewelry</option>
+        <option value="Painting">Painting</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <form id="tutorial-form" class="panel-form hidden">
+      <h3>Upload a Tutorial</h3>
+      <input type="text" id="t-title" placeholder="Title" required />
+      <textarea id="t-description" placeholder="Description" required></textarea>
+      <div class="form-row">
+        <select id="t-category" required>
+          <option value="">Category</option>
+          <option value="Knitting">Knitting</option>
+          <option value="Woodwork">Woodwork</option>
+          <option value="Pottery">Pottery</option>
+          <option value="Jewelry">Jewelry</option>
+          <option value="Painting">Painting</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="t-difficulty">
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Publish</button>
+        <button type="button" class="btn-secondary" id="cancel-tutorial">Cancel</button>
+      </div>
+    </form>
+
+    <div class="grid" id="tutorials-grid"></div>
+  </section>
+
+  <!-- TUTORIAL DETAIL -->
+  <section class="view hidden" id="view-tutorial-detail">
+    <button class="link-btn" data-view="tutorials">&larr; Back to Tutorials</button>
+    <div id="tutorial-detail-content"></div>
+  </section>
+
+  <!-- MARKETPLACE -->
+  <section class="view hidden" id="view-marketplace">
+    <div class="view-header">
+      <h2>Marketplace</h2>
+      <button class="btn-primary auth-required hidden" id="new-product-btn">+ List a Product</button>
+    </div>
+    <div class="toolbar">
+      <input type="text" id="product-search" placeholder="Search products..." />
+      <select id="product-category">
+        <option value="">All Categories</option>
+        <option value="Knitting">Knitting</option>
+        <option value="Woodwork">Woodwork</option>
+        <option value="Pottery">Pottery</option>
+        <option value="Jewelry">Jewelry</option>
+        <option value="Painting">Painting</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <form id="product-form" class="panel-form hidden">
+      <h3>List a Product</h3>
+      <input type="text" id="p-name" placeholder="Product Name" required />
+      <textarea id="p-description" placeholder="Description" required></textarea>
+      <div class="form-row">
+        <input type="number" id="p-price" placeholder="Price ($)" min="0" step="0.01" required />
+        <input type="number" id="p-stock" placeholder="Stock" min="0" value="1" />
+      </div>
+      <select id="p-category" required>
+        <option value="">Category</option>
+        <option value="Knitting">Knitting</option>
+        <option value="Woodwork">Woodwork</option>
+        <option value="Pottery">Pottery</option>
+        <option value="Jewelry">Jewelry</option>
+        <option value="Painting">Painting</option>
+        <option value="Other">Other</option>
+      </select>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">List Product</button>
+        <button type="button" class="btn-secondary" id="cancel-product">Cancel</button>
+      </div>
+    </form>
+
+    <div class="grid" id="products-grid"></div>
+  </section>
+
+  <!-- CART -->
+  <section class="view hidden" id="view-cart">
+    <h2>Your Cart</h2>
+    <div id="cart-content"></div>
+  </section>
+
+  <!-- ORDERS -->
+  <section class="view hidden" id="view-orders">
+    <h2>Your Orders</h2>
+    <div id="orders-content"></div>
+  </section>
+
+  <!-- LOGIN -->
+  <section class="view hidden" id="view-login">
+    <form class="auth-form" id="login-form">
+      <h2>Log In</h2>
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button type="submit" class="btn-primary">Log In</button>
+      <p class="auth-switch">No account? <button type="button" class="link-btn" data-view="register">Sign up</button></p>
+    </form>
+  </section>
+
+  <!-- REGISTER -->
+  <section class="view hidden" id="view-register">
+    <form class="auth-form" id="register-form">
+      <h2>Create Account</h2>
+      <input type="text" id="reg-name" placeholder="Full Name" required />
+      <input type="email" id="reg-email" placeholder="Email" required />
+      <input type="password" id="reg-password" placeholder="Password (min 6 chars)" minlength="6" required />
+      <button type="submit" class="btn-primary">Sign Up</button>
+      <p class="auth-switch">Already have an account? <button type="button" class="link-btn" data-view="login">Log in</button></p>
+    </form>
+  </section>
+
+  <!-- ADMIN -->
+  <section class="view hidden" id="view-admin">
+    <h2>Admin Panel</h2>
+    <div class="stats-grid" id="admin-stats"></div>
+    <h3>All Orders</h3>
+    <div id="admin-orders"></div>
+    <h3>All Users</h3>
+    <div id="admin-users"></div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
